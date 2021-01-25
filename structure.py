@@ -62,6 +62,9 @@ class HaleStructure:
         self.n_node_fin = None
         self.n_node_tail = None
 
+        self.span_main = span_main
+        self.span_tail = span_tail
+
     def set_thrust(self, value):
         self.thrust = value
 

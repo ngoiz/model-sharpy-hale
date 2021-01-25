@@ -5,6 +5,7 @@ import numpy as np
 from structure import HaleStructure
 from aero import HaleAero
 import os
+import sharpy.sharpy_main
 
 
 class Hale:
@@ -64,3 +65,5 @@ class Hale:
         if os.path.isfile(flightcon_file_name):
             os.remove(flightcon_file_name)
 
+    def run(self):
+        sharpy.sharpy_main.main(['', self.case_route + '/' + self.case_name + '.sharpy'])
