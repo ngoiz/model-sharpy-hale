@@ -27,6 +27,10 @@ class HaleAero:
         self.cs_deflection = kwargs.get('cs_deflection', 0.)
         self.rudder_deflection = kwargs.get('rudder_deflection', 0.)
 
+        self.chord_main = chord_main
+        self.chord_tail = chord_tail
+        self.chord_fin = chord_fin
+
     def generate(self):
 
         n_surfaces = 5
