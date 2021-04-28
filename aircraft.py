@@ -10,12 +10,15 @@ import sharpy.sharpy_main
 
 class Hale:
 
-    def __init__(self, case_name, case_route):
+    def __init__(self, case_name, case_route, output_route):
         self.case_name = case_name
         self.case_route = case_route
+        self.output_route = output_route
 
         self.structure = None
         self.aero = None
+
+        self.settings = None
 
     def init_structure(self, **kwargs):
         self.structure = HaleStructure(self.case_name, self.case_route, **kwargs)
@@ -31,6 +34,10 @@ class Hale:
             self.aero.rudder_deflection = rudder
 
     def generate(self):
+
+        if not os.path.isdir(self.case_route):
+            os.makedirs(self.case_route)
+
         self.structure.generate()
 
         if self.aero is not None:
@@ -43,6 +50,7 @@ class Hale:
         for k, v in settings.items():
             config[k] = v
         config.write()
+        self.settings = settings
 
     def clean(self):
         fem_file_name = self.case_route + '/' + self.case_name + '.fem.h5'

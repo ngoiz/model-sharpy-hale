@@ -75,7 +75,7 @@ class HaleAero:
 
         control_surface_type[1] = 0
         control_surface_deflection[1] = self.rudder_deflection
-        control_surface_chord[1] = m
+        control_surface_chord[1] = m // 2
         control_surface_hinge_coord[1] = -0. # nondimensional wrt elastic axis (+ towards the trailing edge)
 
         we = 0
@@ -144,6 +144,7 @@ class HaleAero:
         # elastic_axis[wn:wn + num_node_main] = fin_ea
         we += n_elem_fin
         wn += n_node_fin - 1
+        control_surface[we - 1, :] = -1
         #
         # # # right tail (surface 3, beam 4)
         i_surf = 3
