@@ -18,6 +18,13 @@ area_ref = chord_main * 2 * span_main
 
 class HaleAero:
     def __init__(self, m, structure, case_name, case_route, **kwargs):
+        """
+        
+        Key-Word Arguments:
+            - cs_deflection (float): Elevator control surface deflection
+            - rudder_deflection (float): rudder deflection
+            - polars (np.array): 4-column array for AoA (rad), Cl, Cd, Cm of the airfoil polar
+        """
         self.m = m
         self.structure = structure
 
@@ -30,6 +37,8 @@ class HaleAero:
         self.chord_main = chord_main
         self.chord_tail = chord_tail
         self.chord_fin = chord_fin
+        
+        self.polars = kwargs.get('polars', None)
 
     def generate(self):
 
@@ -226,4 +235,8 @@ class HaleAero:
             control_surface_chord_input = h5file.create_dataset('control_surface_chord', data=control_surface_chord)
             control_surface_hinge_coord_input = h5file.create_dataset('control_surface_hinge_coord', data=control_surface_hinge_coord)
             control_surface_types_input = h5file.create_dataset('control_surface_type', data=control_surface_type)
-
+            
+            if self.polars is not None:
+                polars_group = h5file.create_group('polars')
+                for i_airfoil in range(3): # there are three airfoils
+                    polars_group.create_dataset('{:g}'.format(i_airfoil), data=self.polars)

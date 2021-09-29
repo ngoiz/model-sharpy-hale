@@ -23,8 +23,8 @@ class Hale:
     def init_structure(self, **kwargs):
         self.structure = HaleStructure(self.case_name, self.case_route, **kwargs)
 
-    def init_aero(self, m):
-        self.aero = HaleAero(m, self.structure, self.case_name, self.case_route)
+    def init_aero(self, m, **kwargs):
+        self.aero = HaleAero(m, self.structure, self.case_name, self.case_route, **kwargs)
 
     def set_flight_controls(self, thrust=0., elevator=0., rudder=0.):
         self.structure.set_thrust(thrust)
